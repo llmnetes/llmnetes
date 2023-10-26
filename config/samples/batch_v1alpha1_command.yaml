@@ -1,0 +1,12 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: Command
+metadata:
+  labels:
+    app.kubernetes.io/name: command
+    app.kubernetes.io/instance: command-sample
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: yolo-operator
+  name: command-sample
+spec:
+  # TODO(user): Add fields here

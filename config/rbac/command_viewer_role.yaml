@@ -1,0 +1,27 @@
+# permissions for end users to view commands.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: command-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: yolo-operator
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: command-viewer-role
+rules:
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commands
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commands/status
+  verbs:
+  - get

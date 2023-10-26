@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commands
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commands/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commands/status
+  verbs:
+  - get
+  - patch
+  - update

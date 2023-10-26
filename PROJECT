@@ -7,4 +7,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: yolo-operator
 repo: github.com/yolo-operator/yolo-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: yolo.ahilaly.dev
+  group: batch
+  kind: Command
+  path: github.com/yolo-operator/yolo-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"
