@@ -3,7 +3,6 @@ module github.com/yolo-operator/yolo-operator
 go 1.20
 
 require (
-	github.com/ghodss/yaml v1.0.0
 	github.com/onsi/ginkgo/v2 v2.9.5
 	github.com/onsi/gomega v1.27.7
 	github.com/sashabaranov/go-openai v1.16.0

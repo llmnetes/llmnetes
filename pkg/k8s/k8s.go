@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	"fmt"
 	"math/rand"
 	"os"
 	"os/exec"
@@ -12,16 +13,16 @@ const (
 )
 
 // NewShellAccess creates a new shellAccess object.
-func NewShellAcess(rootDir string) *shellAccess {
+func NewShellAcess(rootDir string) *ShellAccess {
 	if rootDir == "" {
 		rootDir = defaultRootDir
 	}
-	return &shellAccess{
+	return &ShellAccess{
 		rootDir: rootDir,
 	}
 }
 
-type shellAccess struct {
+type ShellAccess struct {
 	rootDir string
 	// TODO: support swapping out kubeconfigs
 	kubeConfig string
@@ -33,7 +34,7 @@ type shellAccess struct {
 // to the directory.
 // It will return a cleanup function that should be called when the command is done
 // running.
-func (s *shellAccess) PrepareFiles(files map[string]string) (string, func(), error) {
+func (s *ShellAccess) PrepareFiles(files map[string]string) (string, func(), error) {
 	randomDirName := randString(10)
 
 	dir := s.rootDir + "/" + randomDirName
@@ -44,7 +45,7 @@ func (s *shellAccess) PrepareFiles(files map[string]string) (string, func(), err
 	}
 	// Write files to it
 	for fileName, fileContent := range files {
-		f, err := os.Create(dir + fileName)
+		f, err := os.Create(dir + "/" + fileName)
 		if err != nil {
 			return "", func() {}, err
 		}
@@ -64,14 +65,18 @@ func (s *shellAccess) PrepareFiles(files map[string]string) (string, func(), err
 	}
 
 	// Return path to directory and cleanup function
-	return randomDirName, cleanup, nil
+	return dir, cleanup, nil
 }
 
 // RunCommand runs a command on the shell and returns the output
-func (s *shellAccess) RunCommand(command string) (string, error) {
+// the function will use workDir as the working directory.
+func (s *ShellAccess) RunCommand(workDir, command string) (string, error) {
 	// Run command on shell
+	fmt.Println("Running command", command, "in directory", workDir)
 	cmd := exec.Command("sh", "-c", command)
-	stdout, err := cmd.Output()
+	cmd.Dir = workDir
+	stdout, err := cmd.CombinedOutput()
+	fmt.Println("stdout=====>", string(stdout))
 	if err != nil {
 		return "", err
 	}

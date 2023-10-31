@@ -7,6 +7,32 @@ rules:
 - apiGroups:
   - batch.yolo.ahilaly.dev
   resources:
+  - commandexecs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commandexecs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - commandexecs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
   - commands
   verbs:
   - create

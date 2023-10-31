@@ -1,0 +1,6 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: CommandExec
+metadata:
+  name: command1
+spec:
+  input: Deploy a CronJob that will delete pod randomly in the cluster every 2hours. We have access to an image called k8s.io/kubectl that has the kubectl binary in it. Use CronJob with batch/v1 apiVersion
