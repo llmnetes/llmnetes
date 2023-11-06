@@ -33,6 +33,7 @@ import (
 
 	batchv1alpha1 "github.com/yolo-operator/yolo-operator/api/v1alpha1"
 	"github.com/yolo-operator/yolo-operator/internal/controller"
+	"github.com/yolo-operator/yolo-operator/pkg/k8s"
 	"github.com/yolo-operator/yolo-operator/pkg/model/openai"
 	//+kubebuilder:scaffold:imports
 )
@@ -101,6 +102,32 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Command")
+		os.Exit(1)
+	}
+	if err = (&controller.CommandExecReconciler{
+		ShellAccess: k8s.NewShellAcess(""),
+		Model:       model,
+		Client:      mgr.GetClient(),
+		Scheme:      mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "CommandExec")
+		os.Exit(1)
+	}
+	if err = (&controller.ChaosSimulationReconciler{
+		ShellAccess: k8s.NewShellAcess(""),
+		Model:       model,
+		Client:      mgr.GetClient(),
+		Scheme:      mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "ChaosSimulation")
+		os.Exit(1)
+	}
+	if err = (&controller.ClusterAuditReconciler{
+		Model:  model,
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "ClusterAudit")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

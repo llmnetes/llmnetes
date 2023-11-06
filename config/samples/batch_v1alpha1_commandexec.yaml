@@ -1,0 +1,12 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: CommandExec
+metadata:
+  labels:
+    app.kubernetes.io/name: commandexec
+    app.kubernetes.io/instance: commandexec-sample
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: yolo-operator
+  name: commandexec-sample
+spec:
+  # TODO(user): Add fields here

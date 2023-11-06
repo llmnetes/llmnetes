@@ -1,80 +1,77 @@
-# yolo-operator
-// TODO(user): Add simple overview of use/purpose
+# llmnetes (formerly yolo-controller)
+
+A Kubernetes controller that allows users to operate their kubernetes using natural language.
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
 
-## Getting Started
-You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
-**Note:** Your controller will automatically use the current context in your kubeconfig file (i.e. whatever cluster `kubectl cluster-info` shows).
+llmnetes is a Kubernetes controller that allows users to operate their kubernetes
+cluster using a natural language interface. It is backed by LLM (Language Learning Model)
+which translates natural language commands into kubernetes API calls. It is capable of
+understanding commands like `create a deployment with 3 replicas` or `delete all pods in the default namespace`.
+Or even triggering chaos experiments like `kill a pod in the default namespace`. and much more.
 
-### Running on the cluster
-1. Install Instances of Custom Resources:
+llmenetes supports multiple LLM backends. Currently, it supports
+[OpenAI's GPT-3](https://openai.com/blog/openai-api/) and  a local model that is trained on the
+[TODO](TODO) dataset. It is also possible to add your own LLM backend by implementing
+the [LLM interface]().
 
-```sh
-kubectl apply -f config/samples/
+## Support table
+
+| LLM backend | Supported | Notes |
+| ----------- | --------- | ----- |
+| OpenAI GPT-X | Yes | |
+| llama local model | WIP | |
+
+## Status
+
+It is currently in development and is not ready for production use.
+
+## Installation
+
+### Prerequisites
+
+- A Kubernetes cluster with a version >= 1.16.0
+- [helm](https://helm.sh/docs/intro/install/) installed and configured to access your cluster
+- An OPENAI API key
+
+Modify the `deploy/helm-chart/llmnetes/values.yaml` file to add your OPENAI API key
+and other configuration options. Then, install the helm chart:
+
+```bash
+$ helm install llmnetes deploy/helm-chart/llmnetes
 ```
 
-2. Build and push your image to the location specified by `IMG`:
 
-```sh
-make docker-build docker-push IMG=<some-registry>/yolo-operator:tag
+## Examples
+
+#### Create a deployment with 3 replicas
+
+To deploy new pods using llmnetes, you can deploy the following manifest:
+
+```yaml
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: Command
+metadata:
+  name: my-command
+spec:
+  input: Create 3 nginx pods that will serve traffic on port 80.
 ```
 
-3. Deploy the controller to the cluster with the image specified by `IMG`:
+This will create 3 nginx pods that will serve traffic on port 80.
 
-```sh
-make deploy IMG=<some-registry>/yolo-operator:tag
+#### Chaos experiments
+
+llmnetes can also be used to trigger chaos experiments. For example, to kill a pod in the default namespace, you can deploy the following manifest:
+
+```yaml
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: ChaosSimulation
+metadata:
+  name: chaos-simulation-cr
+spec:
+  level: 10 # 1 being the lowest and 10 the highest
+  command: break my cluster networking layer (or at least try to)
 ```
-
-### Uninstall CRDs
-To delete the CRDs from the cluster:
-
-```sh
-make uninstall
-```
-
-### Undeploy controller
-UnDeploy the controller from the cluster:
-
-```sh
-make undeploy
-```
-
-## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
-
-### How it works
-This project aims to follow the Kubernetes [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
-
-It uses [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/),
-which provide a reconcile function responsible for synchronizing resources until the desired state is reached on the cluster.
-
-### Test It Out
-1. Install the CRDs into the cluster:
-
-```sh
-make install
-```
-
-2. Run your controller (this will run in the foreground, so switch to a new terminal if you want to leave it running):
-
-```sh
-make run
-```
-
-**NOTE:** You can also run this in one step by running: `make install run`
-
-### Modifying the API definitions
-If you are editing the API definitions, generate the manifests such as CRs or CRDs using:
-
-```sh
-make manifests
-```
-
-**NOTE:** Run `make --help` for more information on all potential `make` targets
-
-More information can be found via the [Kubebuilder Documentation](https://book.kubebuilder.io/introduction.html)
 
 ## License
 

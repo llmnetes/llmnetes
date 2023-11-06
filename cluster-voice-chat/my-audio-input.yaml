@@ -1,0 +1,6 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: CommandExec
+metadata:
+    name: my-command
+spec:
+    input: It's a load balancer that exposes everything at port 80 It's a load balancer that exposes everything about 80 Port.

@@ -1,4 +1,7 @@
 ## Append samples of your project ##
 resources:
 - batch_v1alpha1_command.yaml
+- batch_v1alpha1_commandexec.yaml
+- batch_v1alpha1_chaossimulation.yaml
+- batch_v1alpha1_clusteraudit.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

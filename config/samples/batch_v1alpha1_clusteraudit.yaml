@@ -1,0 +1,12 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: ClusterAudit
+metadata:
+  labels:
+    app.kubernetes.io/name: clusteraudit
+    app.kubernetes.io/instance: clusteraudit-sample
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: yolo-operator
+  name: clusteraudit-sample
+spec:
+  # TODO(user): Add fields here

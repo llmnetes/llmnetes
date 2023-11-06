@@ -16,6 +16,13 @@ const (
 	file name: (if applicable)
 	command to run:
 	explanation:`
+
+	responseStyle2 = `. Answer using the exact following format (reponse with the exact same format as below):
+	YAML file content: COMPLETE HERE
+	File name: COMPLETE HERE
+	Command to deploy the file: COMPLETE HERE
+	Explanation: COMPLETE HERE
+`
 )
 
 // clientWraper is a wrapper around the openai.Client.
@@ -37,6 +44,7 @@ func NewClientFromEnv() (*clientWraper, error) {
 
 // RunQuery runs a query against the GPT-3 model.
 func (c *clientWraper) RunQuery(query string) (string, error) {
+	fmt.Println("Running query")
 	resp, err := c.client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
@@ -44,7 +52,7 @@ func (c *clientWraper) RunQuery(query string) (string, error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
-					Content: query + responseStyle,
+					Content: query + responseStyle2,
 				},
 			},
 		},
