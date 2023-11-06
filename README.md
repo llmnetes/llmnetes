@@ -1,4 +1,4 @@
-# llmnetes (formerly yolo-controller)
+# LLMNETES
 
 A Kubernetes controller that allows users to operate their kubernetes using natural language.
 
