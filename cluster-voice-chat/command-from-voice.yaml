@@ -1,0 +1,6 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: Command
+metadata:
+	name: my-command
+spec:
+	input: Create a Cron job to delete a pod every two minutes.
