@@ -26,4 +26,22 @@ resources:
   kind: CommandExec
   path: github.com/yolo-operator/yolo-operator/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: yolo.ahilaly.dev
+  group: batch
+  kind: ChaosSimulation
+  path: github.com/yolo-operator/yolo-operator/api/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: yolo.ahilaly.dev
+  group: batch
+  kind: ClusterAudit
+  path: github.com/yolo-operator/yolo-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"

@@ -1,0 +1,27 @@
+# permissions for end users to view clusteraudits.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: clusteraudit-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: yolo-operator
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: clusteraudit-viewer-role
+rules:
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - clusteraudits
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - clusteraudits/status
+  verbs:
+  - get

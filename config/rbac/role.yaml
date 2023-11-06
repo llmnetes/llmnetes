@@ -7,6 +7,58 @@ rules:
 - apiGroups:
   - batch.yolo.ahilaly.dev
   resources:
+  - chaossimulations
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - chaossimulations/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - chaossimulations/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - clusteraudits
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - clusteraudits/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
+  - clusteraudits/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - batch.yolo.ahilaly.dev
+  resources:
   - commandexecs
   verbs:
   - create

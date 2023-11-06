@@ -1,0 +1,12 @@
+apiVersion: batch.yolo.ahilaly.dev/v1alpha1
+kind: ChaosSimulation
+metadata:
+  labels:
+    app.kubernetes.io/name: chaossimulation
+    app.kubernetes.io/instance: chaossimulation-sample
+    app.kubernetes.io/part-of: yolo-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: yolo-operator
+  name: chaossimulation-sample
+spec:
+  # TODO(user): Add fields here
